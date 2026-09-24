@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :items, except: :destroy
   resources :suppliers, only: %i[ index show ]
   resources :orders, only: :index
+  resources :reports, only: :index
   get "about", to: "pages#about"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

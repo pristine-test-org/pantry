@@ -1,0 +1,52 @@
+<% content_for :title, "Reports" %>
+
+<header class="page-header">
+  <p class="eyebrow">Reports</p>
+  <h1>Where the money sits</h1>
+  <p class="lead"><%= money(@total_cents) %> of stock on hand across the kitchen.</p>
+</header>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Stock value by location</h2>
+  </div>
+  <ul class="bar-list">
+    <% Item::LOCATIONS.each do |location| %>
+      <% cents = @by_location.fetch(location, 0) %>
+      <% share = @total_cents.zero? ? 0 : (cents * 100.0 / @total_cents).round %>
+      <li class="bar-list__row">
+        <span class="bar-list__label"><%= location %></span>
+        <span class="bar-list__track"><span class="bar-list__fill" style="width: <%= share %>%"></span></span>
+        <span class="bar-list__value numeric"><%= money(cents) %></span>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Par coverage by category</h2>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col" class="numeric">Items</th>
+          <th scope="col" class="numeric">Below par</th>
+          <th scope="col" class="numeric">At or above par</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @by_category.each do |category, count, below| %>
+          <tr>
+            <th scope="row"><%= category %></th>
+            <td class="numeric"><%= count %></td>
+            <td class="numeric"><%= below %></td>
+            <td class="numeric"><%= count - below %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
