@@ -15,7 +15,7 @@
   --color-rule-strong: #b0a58f;    /* field borders, emphasised rules */
 
   /* The one accent: herb green */
-  --color-accent: #2e6a4e;         /* buttons, active nav, focus ring */
+  --color-accent: #3f9a63;         /* buttons, active nav, focus ring */
   --color-accent-deep: #1e4b37;    /* hover, accent text at small sizes */
   --color-accent-tint: #dfece3;    /* accent wash behind labels */
 
@@ -52,7 +52,7 @@
   --space-xl: 4rem;
 
   /* Shape */
-  --radius-sm: 3px;
+  --radius-sm: 10px;
   --radius-md: 6px;
   --radius-pill: 999px;
   --border-hair: 1px solid var(--color-rule);
