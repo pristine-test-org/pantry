@@ -12,6 +12,11 @@
     <span class="item-card__par">par <%= qty(item.par_level) %></span>
   </p>
 
+  <% fill = item.par_level.zero? ? 100 : [(item.quantity / item.par_level * 100).round, 100].min %>
+  <div class="stock-meter" role="meter" aria-label="Stock against par" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= fill %>">
+    <span class="stock-meter__fill stock-meter__fill--<%= item.stock_status %>" style="width: <%= fill %>%"></span>
+  </div>
+
   <footer class="item-card__foot">
     <span class="stock-tag stock-tag--<%= item.stock_status %>"><%= stock_label(item) %></span>
     <% if item.supplier %>

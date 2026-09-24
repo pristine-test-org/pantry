@@ -46,3 +46,13 @@
   margin-top: var(--space-3xs);
 }
 .item-card__supplier { font-size: var(--text-small); color: var(--color-ink-faint); }
+
+.stock-meter {
+  height: var(--space-2xs);
+  background: var(--color-surface-sunk);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.stock-meter__fill { display: block; height: 100%; border-radius: inherit; background: var(--color-accent); }
+.stock-meter__fill--low { background: var(--color-warn); }
+.stock-meter__fill--out { background: var(--color-danger); }
