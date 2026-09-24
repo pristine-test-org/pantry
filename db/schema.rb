@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_24_210200) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_25_090000) do
   create_table "items", force: :cascade do |t|
     t.string "name", null: false
     t.string "category", null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_24_210200) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "shelf_life_days"
     t.index ["name"], name: "index_items_on_name", unique: true
     t.index ["supplier_id"], name: "index_items_on_supplier_id"
   end

@@ -10,6 +10,7 @@ class Item < ApplicationRecord
   validates :location, inclusion: { in: LOCATIONS }
   validates :unit, inclusion: { in: UNITS }
   validates :quantity, :par_level, numericality: { greater_than_or_equal_to: 0 }
+  validates :shelf_life_days, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 
   scope :by_name, -> { order(:name) }
   scope :low_stock, -> { where("quantity < par_level") }
