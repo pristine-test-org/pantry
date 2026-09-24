@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for?(:title) ? "#{yield(:title)} · Pantry" : "Pantry" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="application-name" content="Pantry">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes every stylesheet in app/assets/stylesheets; tokens.css holds the design tokens %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="<%= "is-signed-out" unless current_user %>">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <%= link_to (current_user ? root_path : new_session_path), class: "wordmark" do %>
+          <span class="wordmark__mark" aria-hidden="true">P</span>Pantry
+        <% end %>
+
+        <% if current_user %>
+          <nav class="site-nav" aria-label="Main">
+            <%= nav_link "Dashboard", root_path %>
+            <%= nav_link "Items", items_path, active: controller_name == "items" %>
+            <%= nav_link "Suppliers", suppliers_path, active: controller_name == "suppliers" %>
+            <% if manager? %>
+              <%= nav_link "Orders", orders_path %>
+            <% end %>
+            <%= nav_link "About", about_path %>
+          </nav>
+
+          <div class="user-chip">
+            <span class="user-chip__name"><%= current_user.name %></span>
+            <span class="role-badge role-badge--<%= current_user.role %>"><%= current_user.role.capitalize %></span>
+            <%= button_to "Sign out", session_path, method: :delete, class: "button button--quiet button--small" %>
+          </div>
+        <% else %>
+          <nav class="site-nav" aria-label="Main">
+            <%= nav_link "About", about_path %>
+            <%= nav_link "Sign in", new_session_path %>
+          </nav>
+        <% end %>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <%= render "shared/flash" %>
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <p>Pantry keeps the kitchen's stock honest. Counts are entered by hand at close.</p>
+    </footer>
+  </body>
+</html>

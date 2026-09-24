@@ -1,0 +1,48 @@
+/* The item card: a kitchen ticket with a perforated rule. Used on /, /items and supplier pages. */
+
+.item-card {
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  background: var(--color-surface);
+  border: var(--border-hair);
+  border-top: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-ticket);
+}
+
+.item-card--low { border-top-color: var(--color-warn); }
+.item-card--out { border-top-color: var(--color-danger); }
+
+.item-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding-bottom: var(--space-2xs);
+  border-bottom: 1px dashed var(--color-rule-strong);
+}
+
+.item-card__name a { color: var(--color-ink); text-decoration: none; }
+.item-card__name a:hover { color: var(--color-accent-deep); text-decoration: underline; }
+
+.item-card__count {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3xs);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.item-card__qty { font-size: var(--text-title); line-height: 1; }
+.item-card__unit { color: var(--color-ink-muted); }
+.item-card__par { margin-left: auto; font-size: var(--text-small); color: var(--color-ink-faint); }
+
+.item-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-3xs);
+}
+.item-card__supplier { font-size: var(--text-small); color: var(--color-ink-faint); }

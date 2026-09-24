@@ -1,0 +1,61 @@
+<% content_for :title, @supplier.name %>
+
+<p class="breadcrumb"><%= link_to "Suppliers", suppliers_path %> / <%= @supplier.name %></p>
+
+<header class="page-header">
+  <p class="eyebrow">Delivers <%= @supplier.delivery_days %></p>
+  <h1><%= @supplier.name %></h1>
+  <p class="lead"><%= @supplier.notes %></p>
+</header>
+
+<div class="detail-layout">
+  <dl class="detail-list">
+    <div class="detail-list__row">
+      <dt>Contact</dt>
+      <dd><%= @supplier.contact_name %></dd>
+    </div>
+    <div class="detail-list__row">
+      <dt>Email</dt>
+      <dd><%= mail_to @supplier.email %></dd>
+    </div>
+    <div class="detail-list__row">
+      <dt>Phone</dt>
+      <dd class="numeric"><%= @supplier.phone %></dd>
+    </div>
+    <div class="detail-list__row">
+      <dt>Lead time</dt>
+      <dd class="numeric"><%= pluralize(@supplier.lead_time_days, "day") %></dd>
+    </div>
+  </dl>
+
+  <% if @orders %>
+    <aside class="note-panel">
+      <h2 class="note-panel__title">Recent orders</h2>
+      <% if @orders.any? %>
+        <ul class="rule-list">
+          <% @orders.each do |order| %>
+            <li class="rule-list__row">
+              <span class="rule-list__title"><%= order.reference %></span>
+              <span class="status-pill status-pill--<%= order.status %>"><%= order.status.capitalize %></span>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No orders yet.</p>
+      <% end %>
+    </aside>
+  <% end %>
+</div>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Items from <%= @supplier.name %></h2>
+  </div>
+  <% if @items.any? %>
+    <div class="card-grid">
+      <%= render partial: "items/item_card", collection: @items, as: :item %>
+    </div>
+  <% else %>
+    <p class="empty">No items are sourced here yet.</p>
+  <% end %>
+</section>

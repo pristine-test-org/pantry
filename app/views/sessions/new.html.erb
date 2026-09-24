@@ -1,0 +1,25 @@
+<% content_for :title, "Sign in" %>
+
+<div class="auth">
+  <div class="auth__panel">
+    <p class="eyebrow">Pantry</p>
+    <h1 class="auth__title">Sign in to count</h1>
+    <p class="auth__lead">Use the account the kitchen manager set up for you.</p>
+
+    <%= form_with url: session_path, class: "form" do |form| %>
+      <div class="field">
+        <%= form.label :email_address, "Email" %>
+        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", value: params[:email_address] %>
+      </div>
+      <div class="field">
+        <%= form.label :password %>
+        <%= form.password_field :password, required: true, autocomplete: "current-password", maxlength: 72 %>
+      </div>
+      <div class="form-actions">
+        <%= form.submit "Sign in", class: "button button--solid button--wide" %>
+      </div>
+    <% end %>
+
+    <p class="auth__hint">Forgot your password? Ask a manager to reset it.</p>
+  </div>
+</div>

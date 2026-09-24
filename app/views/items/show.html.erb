@@ -1,0 +1,42 @@
+<% content_for :title, @item.name %>
+
+<p class="breadcrumb"><%= link_to "Items", items_path %> / <%= @item.category %></p>
+
+<header class="page-header page-header--split">
+  <div>
+    <p class="eyebrow"><%= @item.location %></p>
+    <h1><%= @item.name %></h1>
+    <p><span class="stock-tag stock-tag--<%= @item.stock_status %>"><%= stock_label(@item) %></span></p>
+  </div>
+  <%= link_to "Edit item", edit_item_path(@item), class: "button button--outline" %>
+</header>
+
+<div class="detail-layout">
+  <dl class="detail-list">
+    <div class="detail-list__row">
+      <dt>On hand</dt>
+      <dd class="numeric"><%= qty(@item.quantity) %> <%= @item.unit %></dd>
+    </div>
+    <div class="detail-list__row">
+      <dt>Par level</dt>
+      <dd class="numeric"><%= qty(@item.par_level) %> <%= @item.unit %></dd>
+    </div>
+    <div class="detail-list__row">
+      <dt>Unit cost</dt>
+      <dd class="numeric"><%= money(@item.unit_cost_cents) %> / <%= @item.unit %></dd>
+    </div>
+    <div class="detail-list__row">
+      <dt>Stock value</dt>
+      <dd class="numeric"><%= money(@item.stock_value_cents) %></dd>
+    </div>
+    <div class="detail-list__row">
+      <dt>Supplier</dt>
+      <dd><%= @item.supplier ? link_to(@item.supplier.name, @item.supplier) : "None" %></dd>
+    </div>
+  </dl>
+
+  <aside class="note-panel">
+    <h2 class="note-panel__title">Kitchen notes</h2>
+    <p><%= @item.notes.presence || "No notes for this item." %></p>
+  </aside>
+</div>

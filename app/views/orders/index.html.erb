@@ -1,0 +1,41 @@
+<% content_for :title, "Orders" %>
+
+<header class="page-header">
+  <p class="eyebrow">Managers only</p>
+  <h1>Orders</h1>
+  <p class="lead">Purchase orders to suppliers, newest first.</p>
+</header>
+
+<nav class="segmented" aria-label="Filter by status">
+  <%= link_to "All", orders_path, class: "segmented__option", aria: { current: (@status.nil? ? "true" : nil) } %>
+  <% Order::STATUSES.each do |status| %>
+    <%= link_to status.capitalize, orders_path(status: status), class: "segmented__option", aria: { current: (@status == status ? "true" : nil) } %>
+  <% end %>
+</nav>
+
+<div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th scope="col">Reference</th>
+        <th scope="col">Supplier</th>
+        <th scope="col">Status</th>
+        <th scope="col">Expected</th>
+        <th scope="col" class="numeric">Lines</th>
+        <th scope="col" class="numeric">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <th scope="row" class="mono"><%= order.reference %></th>
+          <td><%= link_to order.supplier.name, order.supplier %></td>
+          <td><span class="status-pill status-pill--<%= order.status %>"><%= order.status.capitalize %></span></td>
+          <td><%= order.expected_on ? l(order.expected_on, format: :short) : "Not set" %></td>
+          <td class="numeric"><%= order.line_count %></td>
+          <td class="numeric"><%= money(order.total_cents) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

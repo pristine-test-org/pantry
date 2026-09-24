@@ -1,0 +1,21 @@
+<article class="item-card item-card--<%= item.stock_status %>">
+  <header class="item-card__head">
+    <span class="label"><%= item.category %></span>
+    <span class="location-tag"><%= item.location %></span>
+  </header>
+
+  <h3 class="item-card__name"><%= link_to item.name, item %></h3>
+
+  <p class="item-card__count">
+    <span class="item-card__qty"><%= qty(item.quantity) %></span>
+    <span class="item-card__unit"><%= item.unit %></span>
+    <span class="item-card__par">par <%= qty(item.par_level) %></span>
+  </p>
+
+  <footer class="item-card__foot">
+    <span class="stock-tag stock-tag--<%= item.stock_status %>"><%= stock_label(item) %></span>
+    <% if item.supplier %>
+      <span class="item-card__supplier"><%= item.supplier.name %></span>
+    <% end %>
+  </footer>
+</article>

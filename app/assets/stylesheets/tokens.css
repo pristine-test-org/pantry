@@ -1,0 +1,63 @@
+/*
+ * Pantry design tokens. Every colour, size, space and radius used in the
+ * other stylesheets is read from here. DESIGN.md mirrors these values;
+ * change both in the same commit.
+ */
+:root {
+  /* Paper and ink */
+  --color-ground: #f5f0e6;         /* butcher paper, the page ground */
+  --color-surface: #fffcf6;        /* cards, fields, table body */
+  --color-surface-sunk: #ebe4d6;   /* table heads, wells, stripes */
+  --color-ink: #1c211e;            /* headings and body */
+  --color-ink-muted: #475049;      /* secondary copy */
+  --color-ink-faint: #5f665f;      /* meta, captions, units */
+  --color-rule: #d8cfbd;           /* hairlines and borders, never text */
+  --color-rule-strong: #b0a58f;    /* field borders, emphasised rules */
+
+  /* The one accent: herb green */
+  --color-accent: #2e6a4e;         /* buttons, active nav, focus ring */
+  --color-accent-deep: #1e4b37;    /* hover, accent text at small sizes */
+  --color-accent-tint: #dfece3;    /* accent wash behind labels */
+
+  /* Stock signals */
+  --color-warn: #8a4f06;           /* below par: text */
+  --color-warn-tint: #f7e8cc;      /* below par: wash */
+  --color-danger: #a3301d;         /* out of stock: text */
+  --color-danger-tint: #f6dfd9;    /* out of stock: wash */
+
+  /* Type families */
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Type scale, six steps at a 16px root */
+  --text-label: 0.75rem;
+  --text-small: 0.875rem;
+  --text-body: 1rem;
+  --text-lead: 1.25rem;
+  --text-title: 1.75rem;
+  --text-display: 2.5rem;
+
+  --leading-tight: 1.15;
+  --leading-body: 1.55;
+  --tracking-label: 0.12em;
+
+  /* Space */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  /* Shape */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-pill: 999px;
+  --border-hair: 1px solid var(--color-rule);
+  --shadow-ticket: 0 1px 0 var(--color-rule-strong);
+
+  --measure: 64ch;
+  --page-width: 72rem;
+}

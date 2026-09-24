@@ -1,0 +1,25 @@
+<% content_for :title, "Items" %>
+
+<header class="page-header page-header--split">
+  <div>
+    <p class="eyebrow">Inventory</p>
+    <h1>Items</h1>
+    <p class="lead">Every ingredient on the shelves, counted at close.</p>
+  </div>
+  <%= link_to "Add item", new_item_path, class: "button button--solid" %>
+</header>
+
+<nav class="segmented" aria-label="Filter by location">
+  <%= link_to "All", items_path, class: "segmented__option", aria: { current: (@location.nil? ? "true" : nil) } %>
+  <% Item::LOCATIONS.each do |location| %>
+    <%= link_to location, items_path(location: location), class: "segmented__option", aria: { current: (@location == location ? "true" : nil) } %>
+  <% end %>
+</nav>
+
+<% if @items.any? %>
+  <div class="card-grid">
+    <%= render partial: "items/item_card", collection: @items, as: :item %>
+  </div>
+<% else %>
+  <p class="empty">Nothing stored here yet.</p>
+<% end %>

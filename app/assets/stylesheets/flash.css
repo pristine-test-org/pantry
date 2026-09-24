@@ -1,0 +1,36 @@
+/* Flash messages rendered by app/views/shared/_flash.html.erb. */
+
+.flash {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-size: var(--text-small);
+}
+
+.flash__icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+}
+
+.flash--notice {
+  background: var(--color-accent-tint);
+  border-color: var(--color-accent);
+  color: var(--color-accent-deep);
+}
+.flash--notice .flash__icon { background: var(--color-accent); color: var(--color-surface); }
+
+.flash--alert {
+  background: var(--color-danger-tint);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+.flash--alert .flash__icon { background: var(--color-danger); color: var(--color-surface); }

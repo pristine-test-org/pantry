@@ -1,0 +1,65 @@
+<% content_for :title, "Dashboard" %>
+
+<header class="page-header">
+  <p class="eyebrow">Today's count · <%= l(Date.current, format: :long) %></p>
+  <h1>Morning, <%= current_user.name.split.first %>.</h1>
+  <p class="lead">
+    <%= pluralize(@item_count, "item") %> on the shelves,
+    <%= @low_stock_count %> below par.
+  </p>
+</header>
+
+<section class="stat-row" aria-label="Kitchen at a glance">
+  <div class="stat">
+    <p class="stat__label">Items tracked</p>
+    <p class="stat__value"><%= @item_count %></p>
+  </div>
+  <div class="stat stat--warn">
+    <p class="stat__label">Below par</p>
+    <p class="stat__value"><%= @low_stock_count %></p>
+  </div>
+  <div class="stat">
+    <p class="stat__label">Suppliers</p>
+    <p class="stat__value"><%= @supplier_count %></p>
+  </div>
+  <% if manager? %>
+    <div class="stat">
+      <p class="stat__label">Open orders</p>
+      <p class="stat__value"><%= @open_order_count %></p>
+    </div>
+  <% else %>
+    <div class="stat">
+      <p class="stat__label">Stock on hand</p>
+      <p class="stat__value"><%= money(@stock_value_cents) %></p>
+    </div>
+  <% end %>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Below par</h2>
+    <%= link_to "All items", items_path, class: "section-head__link" %>
+  </div>
+  <% if @low_stock.any? %>
+    <div class="card-grid">
+      <%= render partial: "items/item_card", collection: @low_stock, as: :item %>
+    </div>
+  <% else %>
+    <p class="empty">Everything is at or above par. Good close.</p>
+  <% end %>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Recently counted</h2>
+  </div>
+  <ul class="rule-list">
+    <% @recent.each do |item| %>
+      <li class="rule-list__row">
+        <%= link_to item.name, item, class: "rule-list__title" %>
+        <span class="rule-list__meta"><%= qty(item.quantity) %> <%= item.unit %> · <%= item.location %></span>
+        <span class="rule-list__meta"><%= time_ago_in_words(item.updated_at) %> ago</span>
+      </li>
+    <% end %>
+  </ul>
+</section>

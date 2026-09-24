@@ -1,0 +1,10 @@
+<% content_for :title, "Add item" %>
+
+<p class="breadcrumb"><%= link_to "Items", items_path %> / New</p>
+
+<header class="page-header">
+  <h1>Add an item</h1>
+  <p class="lead">Set a par level so Pantry can tell you when to reorder.</p>
+</header>
+
+<%= render "form", item: @item %>

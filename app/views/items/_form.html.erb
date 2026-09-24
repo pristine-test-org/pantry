@@ -1,0 +1,65 @@
+<%= form_with model: item, class: "form" do |form| %>
+  <% if item.errors.any? %>
+    <div class="form-errors" role="alert">
+      <p class="form-errors__title"><%= pluralize(item.errors.count, "problem") %> to fix</p>
+      <ul>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true %>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <%= form.label :category %>
+      <%= form.select :category, Item::CATEGORIES %>
+    </div>
+    <div class="field">
+      <%= form.label :location %>
+      <%= form.select :location, Item::LOCATIONS %>
+    </div>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <%= form.label :quantity, "On hand" %>
+      <%= form.number_field :quantity, step: 0.25, min: 0 %>
+    </div>
+    <div class="field">
+      <%= form.label :par_level %>
+      <%= form.number_field :par_level, step: 0.25, min: 0 %>
+    </div>
+    <div class="field">
+      <%= form.label :unit %>
+      <%= form.select :unit, Item::UNITS %>
+    </div>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <%= form.label :unit_cost_cents, "Unit cost (cents)" %>
+      <%= form.number_field :unit_cost_cents, min: 0 %>
+    </div>
+    <div class="field">
+      <%= form.label :supplier_id %>
+      <%= form.collection_select :supplier_id, Supplier.by_name, :id, :name, include_blank: "No supplier" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes, "Kitchen notes" %>
+    <%= form.text_area :notes, rows: 3 %>
+    <p class="field__help">Storage, prep or allergen notes the line should see.</p>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "button button--solid" %>
+    <%= link_to "Cancel", (item.persisted? ? item : items_path), class: "button button--quiet" %>
+  </div>
+<% end %>
