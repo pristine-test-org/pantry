@@ -21,6 +21,7 @@
         <th scope="col">Supplier</th>
         <th scope="col">Status</th>
         <th scope="col">Expected</th>
+        <th scope="col">Arrives</th>
         <th scope="col" class="numeric">Lines</th>
         <th scope="col" class="numeric">Total</th>
       </tr>
@@ -32,10 +33,25 @@
           <td><%= link_to order.supplier.name, order.supplier %></td>
           <td><span class="status-pill status-pill--<%= order.status %>"><%= order.status.capitalize %></span></td>
           <td><%= order.expected_on ? l(order.expected_on, format: :short) : "Not set" %></td>
+          <td>
+            <% if order.status == "placed" && order.expected_on %>
+              <% days = (order.expected_on - Date.current).to_i %>
+              <span class="stock-tag stock-tag--<%= days <= 1 ? "low" : "ok" %>"><%= days.zero? ? "Today" : "In #{pluralize(days, "day")}" %></span>
+            <% else %>
+              <span class="rule-list__meta">—</span>
+            <% end %>
+          </td>
           <td class="numeric"><%= order.line_count %></td>
           <td class="numeric"><%= money(order.total_cents) %></td>
         </tr>
       <% end %>
     </tbody>
+    <tfoot>
+      <tr>
+        <th scope="row" colspan="5">Total, <%= pluralize(@orders.size, "order") %></th>
+        <td class="numeric"><%= @orders.sum(&:line_count) %></td>
+        <td class="numeric"><strong><%= money(@orders.sum(&:total_cents)) %></strong></td>
+      </tr>
+    </tfoot>
   </table>
 </div>
