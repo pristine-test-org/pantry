@@ -222,3 +222,11 @@
 }
 .rule-list__title { font-weight: 600; margin-right: auto; }
 .rule-list__meta { font-size: var(--text-small); color: var(--color-ink-faint); }
+
+@media (max-width: 479px) {
+  .site-header__inner {
+    width: 560px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+}
